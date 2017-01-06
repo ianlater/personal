@@ -37,7 +37,10 @@ var ripple = function(p, r = 20, c = 20, s = 60){
     else
       drawTriangleStrip();
   };
-
+  
+  p.touchStarted = function(){
+    mouseClicked();
+  }
   p.mouseClicked = function() {
     if (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height) {
         toggle = !toggle;
