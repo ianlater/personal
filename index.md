@@ -4,3 +4,6 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
 ---
+Test content
+
+<div style="float:right;"><h1>I'm on Github!</h1></div>
