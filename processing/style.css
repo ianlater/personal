@@ -1,0 +1,17 @@
+body {
+
+}
+
+.outercontainer{
+  width: 1000px;
+}
+
+.innercontainer{
+  width:900px;
+  margin: auto;
+  border: red 10px;
+}
+
+.matrix{
+  float:left;
+}
