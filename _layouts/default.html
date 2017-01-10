@@ -17,10 +17,10 @@
   </head>
   <body>
     <div id="header">
-      <a href="/" style="text-decoration:none'"><h1>ijl</h1></a>
+      <a href="{{ "/" | relative_url }}" style="text-decoration:none'"><h1>ijl</h1></a>
 		  <a href="/">welcome</a>&nbsp;
-		  <a href="/processing">processing</a>&nbsp;
-		  <a href="/pictures">pictures</a>&nbsp;
+		  <a href="{{ "/processing" | relative_url }}">processing</a>&nbsp;
+		  <a href="{{ "/pictures" | relative_url }}">pictures</a>&nbsp;
     </div>
     {{content}}
     <div id="footer">{{ site.time | date: "%a, %b %d, %y" }},  Ian Later</div>
