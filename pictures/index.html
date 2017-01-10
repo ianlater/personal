@@ -1,0 +1,15 @@
+---
+layout: portfolio
+---
+
+{% for albums in site.pictures %}
+  {% for image in albums %}
+  {{ forloop.index }}
+  {{image}}
+    <h2>{{ image.title }}</h2>
+    {{ image.src | asset_url | img_tag }}
+    <p>
+      {{ image.caption }}
+    </p>
+  {% endfor %}
+{% endfor %}
