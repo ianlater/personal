@@ -5,5 +5,5 @@
 layout: home
 ---
 Test content
-
+<a href="/processing">Processing</a>
 <div style="float:right;"><h1>I'm on Github!</h1></div>
