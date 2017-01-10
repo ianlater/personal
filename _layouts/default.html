@@ -5,8 +5,10 @@
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   	<title>Ian Later</title>
-  	<link href="/css/public.css" media="all" rel="stylesheet" type="text/css" />
-  	<link href="/css/tooltip.css" media="all" rel="stylesheet" type="text/css" />
+  	<link href="{{ "/css/public.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
+
+
+  	<link href="{{ "/css/tooltip.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
     {% for js in page.jsarr %}
     	<script type="text/javascript">
     		{% include {{ js }} %}
