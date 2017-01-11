@@ -1,4 +1,30 @@
 ---
 layout: default
 ---
+<center>
 {{ content }}
+</center>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$(".fancybox")
+		.attr('rel', 'gallery')
+		.fancybox({
+			padding : 0,
+			beforeShow: function () {
+            /* Disable right click */
+            $.fancybox.wrap.bind("contextmenu", function (e) {
+                    return false;
+            });
+			},
+			openEffect  : 'none',
+			closeEffect : 'none',
+			nextEffect  : 'none',
+			prevEffect  : 'none',
+			margin      : [20, 60, 20, 60] // Increase left/right margin
+		});
+	});
+
+
+</script>

@@ -1,1 +1,27 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+{% for js in page.jsarr %}
+  <script type="text/javascript">
+    {% include {{ js }} %}
+  </script>
+{% endfor %}
+
+
+{% if page.fancybox %}
+  <!-- Add fancyBox -->
+  <link href="{{ "/css/fancybox/jquery.fancybox.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" >
+    {% include fancybox/source/jquery.fancybox.pack.js %}
+  </script>
+
+  <!-- Optionally add helpers - button, thumbnail and/or media -->
+  <link href="{{ "/css/fancybox/jquery.fancybox.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
+  <link href="{{ "/css/fancybox/jquery.fancybox-buttons.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
+
+  <script type="text/javascript" >
+    {% include fancybox/source/helpers/jquery.fancybox-buttons.js %}
+  </script>
+  <script type="text/javascript" >
+    {% include fancybox/source/helpers/jquery.fancybox-media.js %}
+  </script>
+{% endif %}

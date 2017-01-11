@@ -1,15 +1,17 @@
 ---
 layout: portfolio
+fancybox: true
 ---
-
-{% for albums in site.pictures %}
-  {% for image in albums %}
-  {{ forloop.index }}
-  {{image}}
-    <h2>{{ image.title }}</h2>
-    {{ image.src | asset_url | img_tag }}
+{% for collection in site.photos %}
+{{albums}}
+  {% for image in collection.albums %}
+    <a class="fancybox" rel="group" href="{{ image.src | asset_url | img_tag }}">
+      <img src="{{ image.src | asset_url | img_tag }}" /><br />
+    </a>
     <p>
+      <h2>{{ image.title }}</h2>
       {{ image.caption }}
+      <hr>
     </p>
   {% endfor %}
 {% endfor %}
