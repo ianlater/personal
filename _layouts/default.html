@@ -1,17 +1,8 @@
 ---
 ---
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  	<title>Ian Later</title>
-    <link rel="icon" href="{{ "/" | relative_url }}/favicon.ico" type="image/x-icon" />
-  	<link href="{{ "/css/public.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
-  	<link href="{{ "/css/tooltip.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
-    {% include head.html %}
-
-  </head>
+  {% include head.html %}
   <body>
     <div id="header">
       <a href="{{ "/" | relative_url }}" style="text-decoration:none'"><h1>ijl</h1></a>
@@ -19,7 +10,6 @@
 		  <a href="{{ "/processing" | relative_url }}">processing</a>&nbsp;
 		  <a href="{{ "/pictures" | relative_url }}">pictures</a>&nbsp;
     </div>
-
     {{content}}
 
     <div id="footer">{{ site.time | date: "%a, %b %d, %y" }},  Ian Later</div>

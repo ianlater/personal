@@ -1,0 +1,17 @@
+---
+---
+@import "public";
+@import "tooltip";
+
+.navbar{
+  margin: 0;
+  padding: 5px;
+  text-align: left;
+  background: #1A446C;
+  color: #D4E6F4;
+  line-height:20px;
+  a {
+    color:#FFFFFF;
+    font-size: 13px;
+  }
+}
