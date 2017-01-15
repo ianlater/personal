@@ -1,5 +1,6 @@
 ---
 name: "Chicago->LA 2014"
+date: 2014-01-01
 images:
   -
     title: "US 34"

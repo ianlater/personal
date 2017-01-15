@@ -3,10 +3,8 @@ layout: portfolio
 fancybox: true
 navbar_name: "Albums: "
 ---
-{% assign sections = "" | split: "" %}
-{% for album in site.photos %}
- {% assign sections = sections | push: album.name %}
- {% assign page.sections = sections %}
+{% assign albums = site.photos | order: 'date' %}
+{% for album in albums reversed %}
 <script>
   var album = {{album | jsonify}};
   $('#navbar ul').append("<li><a onClick='javascript:switchSection(\"#{{album.name | slugify}}\")'>"+album.name+"</a></li>");

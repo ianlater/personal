@@ -4,11 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   {% include head.html %}
   <body>
+    <a id="back_to_top" href="#header">Back to top</a>
     <div id="header">
-      <a href="{{ "/" | relative_url }}" style="text-decoration:none'"><h1>ijl</h1></a>
+      <h1 class = "logo" >ijl</h1>
 		  <a href="{{ "/" | relative_url }}">welcome</a>&nbsp;
 		  <a href="{{ "/processing" | relative_url }}">processing</a>&nbsp;
 		  <a href="{{ "/pictures" | relative_url }}">pictures</a>&nbsp;
+
     </div>
     {{content}}
 

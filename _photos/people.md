@@ -1,5 +1,6 @@
 ---
 name: "people"
+date: 2012-08-07
 images:
   -
     title: "| voyeur publique"
