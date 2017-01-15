@@ -1,5 +1,5 @@
 ---
-name: europe
+name: "europe"
 images:
   -
     title: "Jaune"

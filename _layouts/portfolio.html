@@ -2,16 +2,20 @@
 layout: default
 ---
 <link href="{{ "/css/portfolio.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
-<div class="navbar">
-  
+<div id="navbar">
+  <ul>
+    <span style="float:left; padding-right:5px;">{{page.navbar_name}}</span>
+  </ul>
 </div>
-<center>
+<center class="portfolio">
 {{ content }}
 </center>
 
 <script type="text/javascript">
 
 	$(document).ready(function() {
+    $("section").hide();
+    $("section").first().show();
 		$(".fancybox")
 		.attr('rel', 'gallery')
 		.fancybox({
@@ -30,5 +34,9 @@ layout: default
 		});
 	});
 
+function switchSection(section) {
+    $("section").hide();
+    $(section).show();
+}
 
 </script>

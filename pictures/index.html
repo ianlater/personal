@@ -1,8 +1,18 @@
 ---
 layout: portfolio
 fancybox: true
+navbar_name: "Albums: "
 ---
+{% assign sections = "" | split: "" %}
 {% for album in site.photos %}
+ {% assign sections = sections | push: album.name %}
+ {% assign page.sections = sections %}
+<script>
+  var album = {{album | jsonify}};
+  $('#navbar ul').append("<li><a onClick='javascript:switchSection(\"#{{album.name | slugify}}\")'>"+album.name+"</a></li>");
+  // console.log(album);
+</script>
+  <section id='{{album.name | slugify}}'>
     <h1>{{album.name}}</h1>
     {% for image in album.images %}
       <a class="fancybox" rel="group" href="{{ image.src | asset_url | img_tag }}">
@@ -10,8 +20,9 @@ fancybox: true
       </a>
       <p>
         <h2>{{ image.title }}</h2>
-        {{ image.caption }}
+        {{ image.caption | default: "   "}}
         <hr>
       </p>
     {% endfor %}
+  </section>
 {% endfor %}

@@ -1,5 +1,5 @@
 ---
-name: people
+name: "people"
 images:
   -
     title: "| voyeur publique"

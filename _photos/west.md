@@ -1,5 +1,5 @@
 ---
-name: west
+name: "west"
 images:
   -
     title: "Jade Cove"
