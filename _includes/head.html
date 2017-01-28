@@ -8,7 +8,7 @@
 
   {% for js in page.jsarr %}
     <script type="text/javascript">
-      {% include {{ js }} %}
+      {% include {{ js.link }} %}
     </script>
   {% endfor %}
 

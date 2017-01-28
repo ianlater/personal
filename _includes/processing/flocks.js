@@ -5,18 +5,20 @@ var s = function( p ) { // p could be any variable name
   var loop = false;
   p.setup = function() {
     p.createCanvas(900, 600);
-    for (var i = 0; i<100; i++){
+    for (var i = 0; i<150; i++){
       flock.push(new Bird(p));
-      flock[i].velocity = p.createVector(p.random(1,2), p.random(1,2));
-      flock[i].position = p.createVector(p.random(p.width), p.random(p.height));
+      flock[i].velocity = p5.Vector.random2D();
+      flock[i].position = p5.Vector.random2D().mult(p.random(p.width));
     }
     p.noLoop();
-    p.frameRate(20);
+    p.fill(180,180,220);
   };
 
   p.draw = function() {
     p.background(20);
+    processFlocking(flock);
     for (index in flock) {
+      // flock[index].destination.set(p.mouseX, p.mouseY);
       flock[index].draw();
     }
   };
@@ -27,29 +29,59 @@ var s = function( p ) { // p could be any variable name
   };
 };
 
+function processFlocking(flock) {
+  for (index in flock) {
+    for (var i = index; i < flock.length; i++) {
+      flock[index].relateAlignment(flock[i]);
+      flock[i].relateAlignment(flock[index]);
 
-function Bird(p5) {
-  this.position = p5.createVector(0,0);
-  this.velocity = p5.createVector(0,0);
-  this.destination = p5.createVector(0,0);
+      flock[index].relateCohesion(flock[i]);
+      flock[i].relateCohesion(flock[index]);
+
+      flock[index].relateSeparation(flock[i]);
+      flock[i].relateSeparation(flock[index]);
+    }
+  }
+}
+
+function Bird(p) {
+   function steerComponent(){
+    this.vector = p.createVector();
+    this.neighbors = 0;
+  };
+  this.position = p.createVector(0,0);
+  this.velocity = p.createVector(0,0);
+  this.destination = p.createVector(0,0);
   this.alpha = .05;//r/s
-  this.speed = 5;
+  this.terminalspeed = 6;
   this.length = 12;
-  this.width = 3;
-  this.viewRadiusSq = 500;
-  this.maxforce =  .1;
+  this.width = 4;
+  this.viewRadiusSq = 400;
+  this.maxforce =  .2;
+  this.acceleration;
+  this.alignment = new steerComponent();
+  this.cohesion = new steerComponent();
+  this.separation = new steerComponent();
 
   this.draw = function() {
     //rotationally accelerate velocity towards destination
     bearing = this.position.copy().sub(this.destination).normalize().mult(-1);
-    acceleration = this.computeAlignment().add(this.computeCohesion()).add(this.computeSeparation().mult(2));
-    // this.velocity.rotate(angleBetween(this.velocity, bearing)*this.alpha);
-    this.velocity.add(acceleration).limit(this.speed);
+    //compute steer
+    this.acceleration = this.computeAcceleration();
+    //reset steer components
+    this.alignment = new steerComponent();
+    this.cohesion = new steerComponent();
+    this.separation = new steerComponent();
+    // this.velocity.rotate(p5.Vector.angleBetween(this.velocity, bearing)*this.alpha);
+
+    //accelerate velocity
+    this.velocity.add(this.acceleration).limit(this.terminalspeed);
+
     //calculate triangle at origin//
     heading = this.velocity.copy().normalize().mult(-1);
     base = heading.copy().mult(this.length);
     this.viewRadiusSq = base.copy().mult(3).magSq();
-    left = p5.createVector(heading.y, -1 * heading.x).mult(this.width);
+    left = p.createVector(heading.y, -1 * heading.x).mult(this.width);
     right = left.copy().mult(-1);
 
     //wraparound
@@ -63,69 +95,58 @@ function Bird(p5) {
     this.position.lerp(step.x, step.y, 0, this.velocity.mag());
 
     //render
-    p5.stroke(230);
-    p5.triangle(this.position.x, this.position.y,left.x, left.y, right.x, right.y);
-    p5.stroke(255,0,0, 50);
-    p5.line(p5.width/2 ,p5.height/2,this.position.x, this.position.y);
+    p.stroke(220);
+    // p.fill(180,180,220);
+    p.triangle(this.position.x, this.position.y,left.x, left.y, right.x, right.y);
+    p.stroke(255,0,0, 50);
+    p.line(p.width/2 ,p.height/2,this.position.x, this.position.y);
 
   };
 
   this.wraparound = function() {
-    if (this.position.x < -this.length)  this.position.x = p5.width + this.length;
-    if (this.position.y < -this.length)  this.position.y = p5.height + this.length;
-    if (this.position.x > p5.width +this.length) this.position.x = -this.length;
-    if (this.position.y > p5.height+this.length) this.position.y = -this.length;
+    if (this.position.x < -this.length)  this.position.x = p.width + this.length;
+    if (this.position.y < -this.length)  this.position.y = p.height + this.length;
+    if (this.position.x > p.width +this.length) this.position.x = -this.length;
+    if (this.position.y > p.height+this.length) this.position.y = -this.length;
+  };
+
+  this.computeAcceleration = function() {
+    return this.computeAlignment().mult(1).add(this.computeCohesion()).mult(1).add(this.computeSeparation().mult(1.5));
+  }
+
+  this.relateAlignment = function(bird) {
+    if (this.position.copy().sub(bird.position).magSq() < this.viewRadiusSq) {
+      this.alignment.vector.add(bird.velocity);
+      this.alignment.neighbors++;
+    }
   };
 
   this.computeAlignment = function() {
-    var avgVel = p5.createVector();
-    var neighbors = 0;
-    for(index in flock) {
-      bird = flock[index];
-      if (bird != this){
-        if (this.position.copy().sub(bird.position).magSq() < this.viewRadiusSq) {
-          avgVel.add(bird.velocity);
-          neighbors++;
-        }
+    return this.alignment.vector.div(this.alignment.neighbors).normalize().mult(this.terminalspeed).sub(this.velocity).limit(this.maxforce);
+  };
+
+  this.relateCohesion = function(bird) {
+    if (this.position.copy().sub(bird.position).magSq() < this.viewRadiusSq) {
+        this.cohesion.vector.add(bird.position);
+        this.cohesion.neighbors++;
       }
-    }
-    return avgVel.div(neighbors).normalize().mult(this.speed).sub(this.velocity).limit(this.maxforce);
   };
 
   this.computeCohesion = function() {
-    var cofm = p5.createVector();
-    var neighbors = 0;
-    for(index in flock) {
-      bird = flock[index];
-      if (bird != this){
-        if (this.position.copy().sub(bird.position).magSq() < this.viewRadiusSq) {
-          cofm.add(bird.position);
-          neighbors++;
-        }
+    return this.cohesion.vector.div(this.cohesion.neighbors).sub(this.position).normalize().mult(this.terminalspeed).sub(this.velocity).limit(this.maxforce);
+  };
+
+  this.relateSeparation = function(bird) {
+    dist = this.position.copy().sub(bird.position).mag();
+    if (dist > 0 && dist*dist < this.viewRadiusSq*.5) {
+        this.separation.vector.add(this.position.copy().sub(bird.position).normalize().div(dist));
+        this.separation.neighbors++;
       }
-    }
-    return cofm.div(neighbors).sub(this.position).normalize().mult(this.speed).sub(this.velocity).limit(this.maxforce);
   };
 
   this.computeSeparation = function() {
-    var repel = p5.createVector();
-    var neighbors = 0;
-    for(index in flock) {
-      bird = flock[index];
-      if (bird != this){
-        dist = this.position.copy().sub(bird.position).magSq();
-        if (dist > 0 && dist < this.viewRadiusSq*.5) {
-          repel.add(this.position.copy().sub(bird.position).normalize().div(dist));
-          neighbors++;
-        }
-      }
-    }
-    repel.div(neighbors);
-    return repel.normalize().mult(this.speed).sub(this.velocity).limit(this.maxforce);
+    return this.separation.vector.div(this.separation.neighbors).normalize().mult(this.terminalspeed).sub(this.velocity).limit(this.maxforce);
   };
-}
+};
 
-function angleBetween(v1, v2){
-  return Math.acos(v1.dot(v2) / (v1.mag() * v2.mag()));
-}
 var myp5 = new p5(s, 'flocks');

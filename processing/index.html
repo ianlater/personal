@@ -1,24 +1,24 @@
 ---
 layout: portfolio
 jsarr:
- - processing/p5.js
- - processing/ripple.js
- - processing/flocks.js
+ - link: processing/p5.js
+ - link: processing/ripple.js
+   name: "ripple"
+   description: "A sine wave"
+ - link: processing/flocks.js
+   name: "flocks"
+   description: "Some starlings swimming in space"
 navbar_name: "Stuff: "
 ---
 {% for script in page.jsarr %}
-<script>
-  var script = {{script | jsonify}};
-  script = script.replace(/^(.*[\\\/])/,"");
-  script = script.replace(".js","");
-  if (script != "p5")
-  $('#navbar ul').append("<li><a onClick='javascript:switchSection(\"#"+script+"\")'>"+script+"</a></li>");
-</script>
+  {% if script.name %}
+    <script>
+      $('#navbar ul').append("<li><a onClick='javascript:switchSection(\"#"+{{script.name | jsonify}}+"\")'>"+{{script.name | jsonify}}+"</a></li>");
+    </script>
+  	<center>
+  		<section id="{{script.name}}">
+        <p>{{script.description}}</p>
+      </section>
+  	</center> <br>
+  {% endif %}
 {% endfor %}
-	<center>
-    <p>Decided my projects page should be fun</p>
-		<section id="ripple">
-    </section>
-    <section id="flocks">
-    </section>
-	</center> <br>

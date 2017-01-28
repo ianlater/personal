@@ -39,7 +39,7 @@ var ripple = function(p, r = 20, c = 20, s = 60){
   };
 
   p.touchStarted = function(){
-    mouseClicked();
+    this.mouseClicked();
   }
   p.mouseClicked = function() {
     if (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height) {
