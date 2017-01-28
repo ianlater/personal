@@ -76,4 +76,4 @@ var ripple = function(p, r = 20, c = 20, s = 60){
     }
   };
 };
-var l = new p5(ripple, 'c1');
+var l = new p5(ripple, 'ripple');

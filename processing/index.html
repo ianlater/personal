@@ -1,10 +1,24 @@
 ---
-layout: default
+layout: portfolio
 jsarr:
  - processing/p5.js
- - processing/sketch.js
+ - processing/ripple.js
+ - processing/flocks.js
+navbar_name: "Stuff: "
 ---
+{% for script in page.jsarr %}
+<script>
+  var script = {{script | jsonify}};
+  script = script.replace(/^(.*[\\\/])/,"");
+  script = script.replace(".js","");
+  if (script != "p5")
+  $('#navbar ul').append("<li><a onClick='javascript:switchSection(\"#"+script+"\")'>"+script+"</a></li>");
+</script>
+{% endfor %}
 	<center>
     <p>Decided my projects page should be fun</p>
-		<div id="c1"></div>
+		<section id="ripple">
+    </section>
+    <section id="flocks">
+    </section>
 	</center> <br>
