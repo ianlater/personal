@@ -3,7 +3,7 @@ name: "people"
 date: 2012-08-07
 images:
   -
-    title: "| voyeur publique"
+    title: "____nn"
     src: "http://www-scf.usc.edu/~later/itp104/final/photos/peeps/FR0035008.JPG"
     caption: "a la seine"
   -
