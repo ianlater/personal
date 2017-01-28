@@ -11,6 +11,7 @@ var s = function( p ) { // p could be any variable name
       flock[i].position = p.createVector(p.random(p.width), p.random(p.height));
     }
     p.noLoop();
+    p.frameRate(20);
   };
 
   p.draw = function() {
@@ -64,8 +65,8 @@ function Bird(p5) {
     //render
     p5.stroke(255);
     p5.triangle(this.position.x, this.position.y,left.x, left.y, right.x, right.y);
-    p5.stroke(255,0,0);
-    // p5.line(p5.width/2 ,p5.height/2,this.position.x, this.position.y);
+    p5.stroke(255,0,0, 50);
+    p5.line(p5.width/2 ,p5.height/2,this.position.x, this.position.y);
 
   };
 
