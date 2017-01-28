@@ -15,7 +15,7 @@ layout: default
 
 	$(document).ready(function() {
     $("section").hide();
-    var selector = window.location.hash.substr(1) != -1 ? "#" + window.location.hash.substr(1) : "section";
+    var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "section";
     $(selector).first().show();
 		$(".fancybox")
 		.attr('rel', 'gallery')
