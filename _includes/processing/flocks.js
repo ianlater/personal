@@ -15,7 +15,7 @@ var s = function( p ) { // p could be any variable name
   };
 
   p.draw = function() {
-    p.background(0);
+    p.background(20);
     for (index in flock) {
       flock[index].draw();
     }
@@ -34,7 +34,7 @@ function Bird(p5) {
   this.destination = p5.createVector(0,0);
   this.alpha = .05;//r/s
   this.speed = 5;
-  this.length = 16;
+  this.length = 12;
   this.width = 3;
   this.viewRadiusSq = 500;
   this.maxforce =  .1;
@@ -63,7 +63,7 @@ function Bird(p5) {
     this.position.lerp(step.x, step.y, 0, this.velocity.mag());
 
     //render
-    p5.stroke(255);
+    p5.stroke(230);
     p5.triangle(this.position.x, this.position.y,left.x, left.y, right.x, right.y);
     p5.stroke(255,0,0, 50);
     p5.line(p5.width/2 ,p5.height/2,this.position.x, this.position.y);
