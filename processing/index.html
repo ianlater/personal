@@ -13,7 +13,7 @@ navbar_name: "Stuff: "
 {% for script in page.jsarr %}
   {% if script.name %}
     <script>
-      $('#navbar ul').append("<li><a onClick='javascript:switchSection(\"#"+{{script.name | jsonify}}+"\")'>"+{{script.name | jsonify}}+"</a></li>");
+      $('#navbar ul').append("<li><a href=\"#"+{{script.name | jsonify}}+"\" onClick='javascript:switchSection(\"#"+{{script.name | jsonify}}+"\")'>"+{{script.name | jsonify}}+"</a></li>");
     </script>
   	<center>
   		<section id="{{script.name}}">
