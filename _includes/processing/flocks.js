@@ -27,22 +27,23 @@ var s = function( p ) { // p could be any variable name
     if (this.toggle) p.loop();
     else p.noLoop();
   };
-};
 
-function processFlocking(flock) {
-  for (index in flock) {
-    for (var i = index; i < flock.length; i++) {
-      flock[index].relateAlignment(flock[i]);
-      flock[i].relateAlignment(flock[index]);
+  function processFlocking(flock) {
+    for (index in flock) {
+      for (var i = index; i < flock.length; i++) {
+        flock[index].relateAlignment(flock[i]);
+        flock[i].relateAlignment(flock[index]);
 
-      flock[index].relateCohesion(flock[i]);
-      flock[i].relateCohesion(flock[index]);
+        flock[index].relateCohesion(flock[i]);
+        flock[i].relateCohesion(flock[index]);
 
-      flock[index].relateSeparation(flock[i]);
-      flock[i].relateSeparation(flock[index]);
+        flock[index].relateSeparation(flock[i]);
+        flock[i].relateSeparation(flock[index]);
+      }
     }
   }
-}
+};
+
 
 function Bird(p) {
    function steerComponent(){
@@ -145,6 +146,12 @@ function Bird(p) {
   };
 
   this.computeSeparation = function() {
+    mousePos = p.createVector(p.mouseX, p.mouseY);
+    dist = this.position.copy().sub(mousePos).mag();
+    if (dist > 0 && dist*dist < 3*this.viewRadiusSq) {
+      var proportion = this.viewRadiusSq/(dist*dist + 1) + .3;
+      return (this.position.copy().sub(mousePos).normalize().div(dist)).normalize().mult(this.terminalspeed).sub(this.velocity).limit(proportion*this.maxforce);
+    }
     return this.separation.vector.div(this.separation.neighbors).normalize().mult(this.terminalspeed).sub(this.velocity).limit(this.maxforce);
   };
 };
