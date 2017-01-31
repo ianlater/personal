@@ -11,7 +11,16 @@
       {% include {{ js.link }} %}
     </script>
   {% endfor %}
+  {% for js in page.jsarr %}
+    <script type="text/javascript">
+      // $.ajax({
+      //   url: "includes{{ js.link | relative_url}}",
+      //   dataType: "script"
+      // });
+      {% include {{ js.link }} %}
 
+    </script>
+  {% endfor %}
 
   {% if page.fancybox %}
     <!-- Add fancyBox -->
