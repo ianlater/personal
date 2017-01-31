@@ -31,6 +31,6 @@ navbar_name: "Stuff: "
 
 {% for js in page.jsarr %}
   <script type="text/javascript">
-    {% include {{ js.link }} %}
+    {% include {{ js.link | relative_url}} %}
   </script>
 {% endfor %}
