@@ -19,6 +19,18 @@ navbar_name: "Stuff: "
           +"\" onClick='javascript:switchSection(\"#"+{{script.name | jsonify}}
           +"\")'>"+{{script.name | jsonify}}
           +"</a></li>");
+      function manageLoading(that, p){
+          p.noLoop();
+          if (p5_registry) {
+            p5_registry["#" + that._userNode.id] = that;
+            var selector = window.location.hash.substr(1);
+            if (selector == that._userNode.id) {
+              p.loop();
+            } else if (selector == "" && $("section").first()[0].id == that._userNode.id){
+              switchSection("#" + that._userNode.id);
+            }
+          }
+        };
     </script>
   	<center>
   		<section id="{{script.name}}">

@@ -14,7 +14,8 @@ layout: default
 <script type="text/javascript">
 
 	$(document).ready(function() {
-    var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "section";
+    // console.log($("section").first()[0].id);
+    var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "#" + $("section").first()[0].id;
     switchSection(selector);
     {% if page.fancybox %}
 

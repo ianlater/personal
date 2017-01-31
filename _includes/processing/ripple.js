@@ -23,14 +23,7 @@ var ripple = function(p, r = 20, c = 20, s = 60){
       }
 
       //for site purposes
-      p.noLoop();
-      if (p5_registry) {
-        p5_registry["#" + this._userNode.id] = this;
-        var selector = window.location.hash.substr(1);
-        if (selector == this._userNode.id) {
-          p.loop();
-        }
-      }
+      manageLoading(this, p);
     }
 
   p.draw = function() {
