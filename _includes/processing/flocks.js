@@ -118,7 +118,7 @@ function Bird(p) {
   };
 
   this.computeAcceleration = function() {
-    return this.computeAlignment().mult(1).add(this.computeCohesion()).mult(1).add(this.computeSeparation().mult(1.5));
+    return this.computeAlignment().mult(1).add(this.computeCohesion()).mult(1).add(this.computeSeparation().mult(2));
   }
 
   this.relateAlignment = function(bird) {
