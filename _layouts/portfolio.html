@@ -16,6 +16,8 @@ layout: default
 	$(document).ready(function() {
     var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "section";
     switchSection(selector);
+    {% if page.fancybox %}
+
 		$(".fancybox")
 		.attr('rel', 'gallery')
 		.fancybox({
@@ -32,6 +34,7 @@ layout: default
 			prevEffect  : 'none',
 			margin      : [20, 60, 20, 60] // Increase left/right margin
 		});
+    {% endif %}
 	});
 
 function switchSection(section) {
