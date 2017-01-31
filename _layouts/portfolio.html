@@ -14,9 +14,8 @@ layout: default
 <script type="text/javascript">
 
 	$(document).ready(function() {
-    $("section").hide();
     var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "section";
-    $(selector).first().show();
+    switchSection(selector);
 		$(".fancybox")
 		.attr('rel', 'gallery')
 		.fancybox({
@@ -38,6 +37,16 @@ layout: default
 function switchSection(section) {
     $("section").hide();
     $(section).show();
-}
+    if (p5_registry) {
+      for (index in p5_registry) {
+        script = p5_registry[index];
+        script._loop = false;
+      }
+      if (p5_registry[section]) {
+        p5_registry[section]._loop = true;
+        p5_registry[section]._draw();
+      }
+    }
+};
 
 </script>

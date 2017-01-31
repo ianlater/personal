@@ -7,7 +7,7 @@ var ripple = function(p, r = 20, c = 20, s = 60){
 
     p.setup = function() {
       canvas = p.createCanvas(1207,500);
-      p.frameRate(20);
+      // p.frameRate(20);
       rows = p.ceil(p.height/scl)+1;
       columns = p.ceil(p.width/scl)+1;
       ar = [];
@@ -20,6 +20,16 @@ var ripple = function(p, r = 20, c = 20, s = 60){
       }
       if(p.int(canvas.id().charAt(canvas.id().length-1)%2)==0) {
         toggle = true;
+      }
+
+      //for site purposes
+      p.noLoop();
+      if (p5_registry) {
+        p5_registry["#" + this._userNode.id] = this;
+        var selector = window.location.hash.substr(1);
+        if (selector == this._userNode.id) {
+          p.loop();
+        }
       }
     }
 
@@ -38,9 +48,6 @@ var ripple = function(p, r = 20, c = 20, s = 60){
       drawTriangleStrip();
   };
 
-  p.touchStarted = function(){
-    this.mouseClicked();
-  }
   p.mouseClicked = function() {
     if (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height) {
         toggle = !toggle;

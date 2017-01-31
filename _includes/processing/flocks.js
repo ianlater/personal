@@ -5,13 +5,23 @@ var s = function( p ) { // p could be any variable name
   var loop = false;
   p.setup = function() {
     p.createCanvas(900, 600);
-    for (var i = 0; i<150; i++){
+
+    for (var i = 0; i<100; i++){
       flock.push(new Bird(p));
       flock[i].velocity = p5.Vector.random2D();
       flock[i].position = p5.Vector.random2D().mult(p.random(p.width));
     }
-    p.noLoop();
     p.fill(180,180,220);
+
+    //for site purposes
+    p.noLoop();
+    if (p5_registry) {
+      p5_registry["#" + this._userNode.id] = this;
+      var selector = window.location.hash.substr(1);
+      if (selector == this._userNode.id) {
+        p.loop();
+      }
+    }
   };
 
   p.draw = function() {
@@ -22,10 +32,9 @@ var s = function( p ) { // p could be any variable name
       flock[index].draw();
     }
   };
+
   p.mouseClicked = function() {
-    this.toggle = !this.toggle;
-    if (this.toggle) p.loop();
-    else p.noLoop();
+
   };
 
   function processFlocking(flock) {
@@ -96,13 +105,16 @@ function Bird(p) {
     this.position.lerp(step.x, step.y, 0, this.velocity.mag());
 
     //render
+    this.render();
+  };
+
+  this.render = function() {
     p.stroke(220);
     // p.fill(180,180,220);
     p.triangle(this.position.x, this.position.y,left.x, left.y, right.x, right.y);
     p.stroke(255,0,0, 50);
     p.line(p.width/2 ,p.height/2,this.position.x, this.position.y);
-
-  };
+  }
 
   this.wraparound = function() {
     if (this.position.x < -this.length)  this.position.x = p.width + this.length;

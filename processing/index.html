@@ -1,7 +1,8 @@
 ---
 layout: portfolio
-jsarr:
+required_js:
  - link: processing/p5.js
+jsarr:
  - link: processing/ripple.js
    name: "ripple"
    description: "A sine wave"
@@ -13,7 +14,12 @@ navbar_name: "Stuff: "
 {% for script in page.jsarr %}
   {% if script.name %}
     <script>
-      $('#navbar ul').append("<li><a href=\"#"+{{script.name | jsonify}}+"\" onClick='javascript:switchSection(\"#"+{{script.name | jsonify}}+"\")'>"+{{script.name | jsonify}}+"</a></li>");
+      $('#navbar ul').append("<li><a id='nav_"+{{script.name | jsonify}}
+          +"' href=\"#"+{{script.name | jsonify}}
+          +"\" onClick='javascript:switchSection(\"#"+{{script.name | jsonify}}
+          +"\")'>"+{{script.name | jsonify}}
+          +"</a></li>");
+      var p5_registry = {};
     </script>
   	<center>
   		<section id="{{script.name}}">
@@ -21,4 +27,10 @@ navbar_name: "Stuff: "
       </section>
   	</center> <br>
   {% endif %}
+{% endfor %}
+
+{% for js in page.jsarr %}
+  <script type="text/javascript">
+    {% include {{ js.link }} %}
+  </script>
 {% endfor %}

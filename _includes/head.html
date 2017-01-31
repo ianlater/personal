@@ -6,7 +6,7 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 
-  {% for js in page.jsarr %}
+  {% for js in page.required_js %}
     <script type="text/javascript">
       {% include {{ js.link }} %}
     </script>
