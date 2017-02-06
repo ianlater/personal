@@ -3,9 +3,11 @@ var polar = function( p ) {
   var nodes = 8;
   var degree = 3;
   var line = false;
+  var me;
   p.setup = function() {
     p.createCanvas(900, 600);
     manageLoading(this, p);
+    me = this;
   };
 
   p.draw = function() {
@@ -29,6 +31,9 @@ var polar = function( p ) {
   };
 
   p.keyReleased = function() {
+    if (window.location.hash.substr(1) != me._userNode.id) {
+      return;
+    }
     if (p.key == ' '){
       line = !line;
     }

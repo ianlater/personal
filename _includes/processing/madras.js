@@ -9,12 +9,14 @@ var madras = function( p ) {
   var count = 0;
   var maxAge = 10;
   var goodcolor;
+  var me;
 
   p.setup = function() {
     goodcolor = [p.color("#000000"), p.color("#000000"), p.color("#000000"), p.color("#6b6556"), p.color("#a09c84"), p.color("#908b7c"), p.color("#79746e"), p.color("#755d35"), p.color("#937343"), p.color("#9c6b4b"), p.color("#ab8259"), p.color("#aa8a61"), p.color("#578375"), p.color("#f0f6f2"), p.color("#d0e0e5"), p.color("#d7e5ec"), p.color("#d3dfea"), p.color("#c2d7e7"), p.color("#a5c6e3"), p.color("#a6cbe6"), p.color("#adcbe5"), p.color("#77839d"), p.color("#d9d9b9"), p.color("#a9a978"), p.color("#727b5b"), p.color("#6b7c4b"), p.color("#546d3e"), p.color("#47472e"), p.color("#727b52"), p.color("#898a6a"), p.color("#919272"), p.color("#AC623b"), p.color("#cb6a33"), p.color("#9d5c30"), p.color("#843f2b"), p.color("#652c2a"), p.color("#7e372b"), p.color("#403229"), p.color("#47392b"), p.color("#3d2626"), p.color("#362c26"), p.color("#57392c"), p.color("#998a72"), p.color("#864d36"), p.color("#544732") ];
     p.createCanvas(1200, 600);
     refresh();
     manageLoading(this, p);
+    me = this;
   };
 
   p.draw = function() {
@@ -25,12 +27,18 @@ var madras = function( p ) {
   };
 
   p.mouseClicked = function() {
+    if (window.location.hash.substr(1) != this._userNode.id || !(p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height)) {
+      return;
+    }
     toggle = !toggle;
     if (toggle) p.noLoop();
     else p.loop();
   };
 
   p.keyReleased = function() {
+    if (window.location.hash.substr(1) != me._userNode.id) {
+      return;
+    }
     if (p.key == ' '){
       p.setup();
     }
@@ -105,10 +113,11 @@ var madras = function( p ) {
       var increment = brushLimit/brushStrokes;
       for (var i =0; i<brushStrokes; i++) {
         fleck = this.position.copy().add(fillNormal.copy().mult((i*increment)));
-        if (this.position.dist(fleck)>brushLimit) {
+        dist = this.position.dist(fleck);
+        if (dist > brushLimit) {
           continue;
         }
-        p.stroke(p.red(strokeColor), p.green(strokeColor), p.blue(strokeColor), (p.pow(.01, i/brushStrokes))*255);
+        p.stroke(p.red(strokeColor), p.green(strokeColor), p.blue(strokeColor), (1 - i/brushStrokes)*200);
         p.point(fleck.x, fleck.y);
       }
     };
