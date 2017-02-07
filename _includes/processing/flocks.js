@@ -24,10 +24,12 @@ var s = function( p ) { // p could be any variable name
   };
 
   p.mouseDragged = function() {
-    bird = new Bird(p);
-    bird.velocity = p5.Vector.random2D();
-    bird.position = p.createVector(p.mouseX, p.mouseY);
-    flock.push(bird);
+    if (window.location.hash.substr(1) == this._userNode.id) {
+      bird = new Bird(p);
+      bird.velocity = p5.Vector.random2D();
+      bird.position = p.createVector(p.mouseX, p.mouseY);
+      flock.push(bird);
+    }
   };
 
   function processFlocking(flock) {
