@@ -11,8 +11,8 @@ var madras = function( p ) {
   var goodcolor, me, brushSlider, fadeSlider;
 
   p.setup = function() {
-    brushSlider = p.createSlider(0,10, 2);
-    fadeSlider = p.createSlider(90,255, 150);
+    brushSlider = p.createSlider(0,15, 4, .33);
+    fadeSlider = p.createSlider(90,255, 100);
     p.createButton("Grid").mousePressed(function(){gridModulator++;});
     p.createButton("Pause").mousePressed(pause);
     p.createButton("Reset").mousePressed(refresh);
@@ -73,7 +73,7 @@ var madras = function( p ) {
     this.position = p.createVector(p.randomGaussian(p.width/2, p.width), p.randomGaussian(p.height/2, p.height));
     this.color = p.color(0);
     var points = [];
-    var brushStrokes = 40;
+    var brushStrokes = 64;
     var fillSide = p.randomGaussian() > 0 ? p.HALF_PI : -1 * p.HALF_PI;
     var strokeColor = goodcolor[p.floor(p.random(goodcolor.length))];
 
@@ -103,7 +103,7 @@ var madras = function( p ) {
       for(var i = 0; i < p.width + p.height; i++) {
         bound = this.position.copy().add(fillNormal.copy().mult(i));
         if (outOfBounds(bound) || (mapToBranches[p.floor(bound.x)][p.floor(bound.y)] && (mapToBranches[p.floor(bound.x)][p.floor(bound.y)] != this))) {
-          brushLimit = p.abs(this.position.dist(bound)*p.randomGaussian(brushSlider.value(),.07)) + bleed;
+          brushLimit = p.abs(this.position.dist(bound)*p.randomGaussian(.12*brushSlider.value(),.07));
           break;
         }
       }
@@ -115,7 +115,7 @@ var madras = function( p ) {
         if (dist > brushLimit) {
           continue;
         }
-        p.stroke(p.red(strokeColor), p.green(strokeColor), p.blue(strokeColor), (1-i/brushStrokes)*fadeSlider.value());
+        p.stroke(p.red(strokeColor), p.green(strokeColor), p.blue(strokeColor), (1/p.log(i+1))*fadeSlider.value());
         p.point(fleck.x, fleck.y);
       }
     };
