@@ -62,7 +62,7 @@ var madras = function( p ) {
     this.equation = function(x,y){
       return p.createVector(x,y).add(this.velocity);
     };
-    if (gridModulator % 2 == 0){
+    if (gridModulator % 3 == 0){
       random = p.random() > .5 ? p.noise(p.TWO_PI) : p.randomGaussian(p.TWO_PI);
     } else if (gridModulator % 2 == 0){
       random = p.randomGaussian(p.TWO_PI);
