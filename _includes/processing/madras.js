@@ -7,7 +7,7 @@ var madras = function( p ) {
   var toggle = false;
   var count = 0;
   var maxAge = 10;
-  var gridModulator = 3;
+  var gridModulator = 2;
   var goodcolor, me, brushSlider, fadeSlider;
 
   p.setup = function() {
