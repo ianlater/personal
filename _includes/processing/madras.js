@@ -1,54 +1,45 @@
 var madras = function( p ) {
-  var resolution = 10;
   var mapToBranches = [];
   var branches = [];
-  var maxBranches = 20;
+  var maxBranches = 30;
   var degree = 3;
   var line = false;
   var toggle = false;
   var count = 0;
   var maxAge = 10;
-  var goodcolor;
-  var me;
+  var gridModulator = 0;
+  var goodcolor, me, brushSlider, fadeSlider;
 
   p.setup = function() {
+    brushSlider = p.createSlider(0,10, 2);
+    fadeSlider = p.createSlider(90,255, 150);
+    p.createButton("Grid").mousePressed(function(){gridModulator++;});
+    p.createButton("Pause").mousePressed(pause);
+    p.createButton("Reset").mousePressed(refresh);
     goodcolor = [p.color("#000000"), p.color("#000000"), p.color("#000000"), p.color("#6b6556"), p.color("#a09c84"), p.color("#908b7c"), p.color("#79746e"), p.color("#755d35"), p.color("#937343"), p.color("#9c6b4b"), p.color("#ab8259"), p.color("#aa8a61"), p.color("#578375"), p.color("#f0f6f2"), p.color("#d0e0e5"), p.color("#d7e5ec"), p.color("#d3dfea"), p.color("#c2d7e7"), p.color("#a5c6e3"), p.color("#a6cbe6"), p.color("#adcbe5"), p.color("#77839d"), p.color("#d9d9b9"), p.color("#a9a978"), p.color("#727b5b"), p.color("#6b7c4b"), p.color("#546d3e"), p.color("#47472e"), p.color("#727b52"), p.color("#898a6a"), p.color("#919272"), p.color("#AC623b"), p.color("#cb6a33"), p.color("#9d5c30"), p.color("#843f2b"), p.color("#652c2a"), p.color("#7e372b"), p.color("#403229"), p.color("#47392b"), p.color("#3d2626"), p.color("#362c26"), p.color("#57392c"), p.color("#998a72"), p.color("#864d36"), p.color("#544732") ];
-    p.createCanvas(1200, 600);
+    p.createCanvas(1200, 600, 'WEBGL');
     refresh();
     manageLoading(this, p);
     me = this;
   };
 
   p.draw = function() {
-    // p.background(255m, 255, 255, 50);
     for (index in branches) {
       branches[index].draw();
     }
   };
 
-  p.mouseClicked = function() {
-    if (window.location.hash.substr(1) != this._userNode.id || !(p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height)) {
-      return;
-    }
+  function pause() {
     toggle = !toggle;
     if (toggle) p.noLoop();
     else p.loop();
   };
 
-  p.keyReleased = function() {
-    if (window.location.hash.substr(1) != me._userNode.id) {
-      return;
-    }
-    if (p.key == ' '){
-      p.setup();
-    }
-  }
-
   function refresh() {
     p.background(255);
-    for (var x = 0; x < p.width*resolution;x++) {
+    for (var x = 0; x < p.width;x++) {
       var col = [];
-      for (var y = 0; y < p.height*resolution;y++){
+      for (var y = 0; y < p.height;y++){
         col[y] = null;
       }
       mapToBranches[x] = col;
@@ -71,7 +62,14 @@ var madras = function( p ) {
     this.equation = function(x,y){
       return p.createVector(x,y).add(this.velocity);
     };
-    this.velocity = p.createVector(1,1,.1).normalize().rotate(p.random(p.TWO_PI));
+    if (gridModulator % 2 == 0){
+      random = p.random() > .5 ? p.noise(p.TWO_PI) : p.randomGaussian(p.TWO_PI);
+    } else if (gridModulator % 2 == 0){
+      random = p.randomGaussian(p.TWO_PI);
+    } else {
+      random = p.noise(p.HALF_PI);
+    }
+    this.velocity = p.createVector(1,1,.1).normalize().rotate(random);
     this.position = p.createVector(p.randomGaussian(p.width/2, p.width), p.randomGaussian(p.height/2, p.height));
     this.color = p.color(0);
     var points = [];
@@ -100,24 +98,24 @@ var madras = function( p ) {
       fillNormal = this.velocity.copy().rotate(fillSide).normalize();
       var bound;
       var brushLimit;
-      bleed = p.randomGaussian(5,2);
+      bleed = p.randomGaussian(0,.5);
 
       for(var i = 0; i < p.width + p.height; i++) {
         bound = this.position.copy().add(fillNormal.copy().mult(i));
         if (outOfBounds(bound) || (mapToBranches[p.floor(bound.x)][p.floor(bound.y)] && (mapToBranches[p.floor(bound.x)][p.floor(bound.y)] != this))) {
-          brushLimit = p.abs(this.position.dist(bound)*p.randomGaussian(0)) + bleed;
+          brushLimit = p.abs(this.position.dist(bound)*p.randomGaussian(brushSlider.value(),.07)) + bleed;
           break;
         }
       }
       p.strokeWeight(.7);
       var increment = brushLimit/brushStrokes;
       for (var i =0; i<brushStrokes; i++) {
-        fleck = this.position.copy().add(fillNormal.copy().mult((i*increment)));
+        fleck = this.position.copy().add(fillNormal.copy().mult(i*increment));
         dist = this.position.dist(fleck);
         if (dist > brushLimit) {
           continue;
         }
-        p.stroke(p.red(strokeColor), p.green(strokeColor), p.blue(strokeColor), (1 - i/brushStrokes)*200);
+        p.stroke(p.red(strokeColor), p.green(strokeColor), p.blue(strokeColor), (1-i/brushStrokes)*fadeSlider.value());
         p.point(fleck.x, fleck.y);
       }
     };

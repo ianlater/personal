@@ -3,18 +3,22 @@ var polar = function( p ) {
   var nodes = 8;
   var degree = 3;
   var line = false;
-  var me;
+  var me, degreeSlider;
   p.setup = function() {
-    p.createCanvas(900, 600);
+    degreeSlider = p.createSlider(0,10,3);
+    p.createButton("Line").mousePressed(function(){line = !line;});
+    p.createButton("Nodes").mousePressed(function(){nodes++;});
+    p.createCanvas(600, 600);
     manageLoading(this, p);
     me = this;
   };
 
   p.draw = function() {
+    degree = degreeSlider.value();
     p.background(255, 255, 255, 50);
     p.translate(p.width/2, p.height/2);
     for (var i = 0; i < nodes % 9 + 1; i ++){
-      c = 10*theta % 80;
+      c = 100*theta % 80;
       p.stroke(p.random(c), 40+p.random(c), p.random(35 + c));
       p.strokeWeight(10);
       if (line)
@@ -25,25 +29,6 @@ var polar = function( p ) {
     }
     theta += 0.01;
   };
-
-  p.mouseClicked = function() {
-    nodes++;
-  };
-
-  p.keyReleased = function() {
-    if (window.location.hash.substr(1) != me._userNode.id) {
-      return;
-    }
-    if (p.key == ' '){
-      line = !line;
-    }
-  }
-
-  p.mouseWheel = function(e) {
-    degree += e.delta > 0 ? 1 : -1;
-    degree = degree > 10 ? 10 : degree;
-    degree = degree <= 0 ? 1 : degree;
-  }
 
   x = function(theta){
     return r(theta) * p.cos(theta);

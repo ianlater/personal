@@ -4,31 +4,30 @@ var flock = [];
 var s = function( p ) { // p could be any variable name
   var loop = false;
   p.setup = function() {
-    p.createCanvas(900, 600);
+    p.createCanvas(1200, 600, 'WEBGL');
 
-    for (var i = 0; i<100; i++){
+    for (var i = 0; i<50; i++){
       flock.push(new Bird(p));
       flock[i].velocity = p5.Vector.random2D();
       flock[i].position = p5.Vector.random2D().mult(p.random(p.width));
     }
     p.fill(180,180,220);
-
-    //for site purposes
     manageLoading(this, p);
-
   };
 
   p.draw = function() {
     p.background(20);
     processFlocking(flock);
     for (index in flock) {
-      // flock[index].destination.set(p.mouseX, p.mouseY);
       flock[index].draw();
     }
   };
 
-  p.mouseClicked = function() {
-
+  p.mouseDragged = function() {
+    bird = new Bird(p);
+    bird.velocity = p5.Vector.random2D();
+    bird.position = p.createVector(p.mouseX, p.mouseY);
+    flock.push(bird);
   };
 
   function processFlocking(flock) {
