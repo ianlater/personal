@@ -12,11 +12,11 @@ layout: default
 </center>
 
 <script type="text/javascript">
+var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "#" + $("section").first()[0].id;
+switchSection(selector);
 
 	$(document).ready(function() {
     // console.log($("section").first()[0].id);
-    var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "#" + $("section").first()[0].id;
-    switchSection(selector);
     {% if page.fancybox %}
 
 		$(".fancybox")
