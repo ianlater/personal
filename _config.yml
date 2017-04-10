@@ -38,3 +38,5 @@ exclude:
 collections:
   photos:
     output: true
+  p5s:
+    output: true

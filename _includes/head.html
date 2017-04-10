@@ -10,20 +10,30 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript">var p5_registry = {};</script>
+
+  {% for js in layout.required_js %}
+    <script type="text/javascript">
+      {% include {{ js.link }} %}
+    </script>
+  {% endfor %}
+
   {% for js in page.required_js %}
     <script type="text/javascript">
       {% include {{ js.link }} %}
     </script>
   {% endfor %}
+
   {% for js in page.jsarr %}
     <script type="text/javascript">
-      // $.ajax({
-      //   url: "includes{{ js.link | relative_url}}",
-      //   dataType: "script"
-      // });
       {% include {{ js.link }} %}
     </script>
   {% endfor %}
+
+  {% if page.collection == 'p5s' %}
+    <script type="text/javascript">
+      {% include {{ page.link }} %}
+    </script>
+  {% endif %}
 
   {% if page.fancybox %}
     <!-- Add fancyBox -->

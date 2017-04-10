@@ -9,7 +9,7 @@ var polar = function( p ) {
     p.createButton("Line").mousePressed(function(){line = !line;});
     p.createButton("Nodes").mousePressed(function(){nodes++;});
     p.createCanvas(600, 600);
-    manageLoading(this, p);
+    // manageLoading(this, p);
     me = this;
   };
 

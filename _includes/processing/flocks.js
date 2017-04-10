@@ -12,7 +12,7 @@ var s = function( p ) { // p could be any variable name
       flock[i].position = p5.Vector.random2D().mult(p.random(p.width));
     }
     p.fill(180,180,220);
-    manageLoading(this, p);
+    // manageLoading(this, p);
   };
 
   p.draw = function() {
@@ -24,12 +24,10 @@ var s = function( p ) { // p could be any variable name
   };
 
   p.mouseDragged = function() {
-    if (window.location.hash.substr(1) == this._userNode.id) {
       bird = new Bird(p);
       bird.velocity = p5.Vector.random2D();
       bird.position = p.createVector(p.mouseX, p.mouseY);
       flock.push(bird);
-    }
   };
 
   function processFlocking(flock) {
@@ -108,7 +106,7 @@ function Bird(p) {
     // p.fill(180,180,220);
     p.triangle(this.position.x, this.position.y,left.x, left.y, right.x, right.y);
     p.stroke(255,0,0, 50);
-    p.line(p.width/2 ,p.height/2,this.position.x, this.position.y);
+    // p.line(p.width/2 ,p.height/2,this.position.x, this.position.y);
   }
 
   this.wraparound = function() {

@@ -7,6 +7,7 @@ var ripple = function(p, r = 20, c = 20, s = 60){
 
     p.setup = function() {
       canvas = p.createCanvas(1200,600);
+      console.log(canvas);
       // p.frameRate(20);
       rows = p.ceil(p.height/scl)+1;
       columns = p.ceil(p.width/scl)+1;
@@ -23,7 +24,7 @@ var ripple = function(p, r = 20, c = 20, s = 60){
       }
 
       //for site purposes
-      manageLoading(this, p);
+      // manageLoading(this, p);
     }
 
   p.draw = function() {

@@ -1,0 +1,56 @@
+---
+layout: default
+---
+<link href="{{ "/css/portfolio.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
+<div id="navbar">
+  <ul>
+    <span style="float:left; padding-right:5px;">{{page.navbar_name}}</span>
+  </ul>
+</div>
+<center class="portfolio">
+{{ content }}
+</center>
+
+<script type="text/javascript">
+var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "#" + $("section").first()[0].id;
+switchSection(selector);
+
+	$(document).ready(function() {
+    // console.log($("section").first()[0].id);
+    {% if page.fancybox %}
+
+		$(".fancybox")
+		.attr('rel', 'gallery')
+		.fancybox({
+			padding : 0,
+			beforeShow: function () {
+            /* Disable right click */
+            $.fancybox.wrap.bind("contextmenu", function (e) {
+                    return false;
+            });
+			},
+			openEffect  : 'none',
+			closeEffect : 'none',
+			nextEffect  : 'none',
+			prevEffect  : 'none',
+			margin      : [20, 60, 20, 60] // Increase left/right margin
+		});
+    {% endif %}
+	});
+
+function switchSection(section) {
+    $("section").hide();
+    $(section).show();
+    if (p5_registry) {
+      for (index in p5_registry) {
+        script = p5_registry[index];
+        script._loop = false;
+      }
+      if (p5_registry[section]) {
+        p5_registry[section]._loop = true;
+        p5_registry[section]._draw();
+      }
+    }
+};
+
+</script>
