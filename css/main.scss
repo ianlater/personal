@@ -10,9 +10,15 @@
   line-height:20px;
   a{
     color:#FFFFFF;
+		display: inline;
   }
+	a:hover {
+		text-decoration: overline;
+	}
 }
-
+#logo {
+  margin-right: 0;
+}
 #navbar{
   margin: 0;
   padding: 5px;
