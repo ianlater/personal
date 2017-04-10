@@ -8,7 +8,7 @@ required_js:
 <div id="navbar">
   <ul>
     <span style="float:left; padding-right:5px;">Stuff: </span>
-    {% for project in site.p5s %}
+    {% for project in site.processing reversed %}
       <li>
         <a id="nav_{{project.name}}" href="{{project.name}}" >{{project.name}}</a>
       </li>

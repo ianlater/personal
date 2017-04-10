@@ -10,10 +10,11 @@ html { height: 100%; width: 100%; }
 body {
   width: 100%; height: 100%;
   margin: 0; padding: 0; border: 0;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Consolas, "Lucida Grande", sans-serif;
   font-size: 13px; line-height: 15px;
   background: #FFFCED;
 }
+
 #main.dark,
 #welcome.dark,
 body.dark{

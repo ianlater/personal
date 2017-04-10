@@ -38,5 +38,5 @@ exclude:
 collections:
   photos:
     output: true
-  p5s:
+  processing:
     output: true
