@@ -1,14 +1,14 @@
 ---
 ---
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#">
   {% include head.html %}
   <body>
     <a id="back_to_top" href="#header">Back to top</a>
     <div id="header">
-      <h1 class = "logo" >ijl</h1>
-		  <a href="{{ "/" | relative_url }}">welcome</a>&nbsp;
-		  <a href="{{ "/processing" | relative_url }}">processing</a>&nbsp;
+      <h1 id = "logo"><a href="{{ "/" | relative_url }}">ijl</a></h1>
+		  <a href="{{ "/processing/ripple" | relative_url }}">processing</a>&nbsp;
 		  <a href="{{ "/pictures" | relative_url }}">pictures</a>&nbsp;
 
     </div>
@@ -18,5 +18,4 @@
   </body>
 </html>
 <script>
-console.log("newly empty");
 </script>

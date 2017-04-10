@@ -12,10 +12,13 @@ layout: default
 </center>
 
 <script type="text/javascript">
+var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "#" + $("section").first()[0].id;
+switchSection(selector);
 
 	$(document).ready(function() {
-    $("section").hide();
-    $("section").first().show();
+    // console.log($("section").first()[0].id);
+    {% if page.fancybox %}
+
 		$(".fancybox")
 		.attr('rel', 'gallery')
 		.fancybox({
@@ -32,11 +35,22 @@ layout: default
 			prevEffect  : 'none',
 			margin      : [20, 60, 20, 60] // Increase left/right margin
 		});
+    {% endif %}
 	});
 
 function switchSection(section) {
     $("section").hide();
     $(section).show();
-}
+    if (p5_registry) {
+      for (index in p5_registry) {
+        script = p5_registry[index];
+        script._loop = false;
+      }
+      if (p5_registry[section]) {
+        p5_registry[section]._loop = true;
+        p5_registry[section]._draw();
+      }
+    }
+};
 
 </script>
