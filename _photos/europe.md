@@ -1,4 +1,5 @@
 ---
+layout: portfolio
 name: "europe"
 date: 2015-03-24
 images:

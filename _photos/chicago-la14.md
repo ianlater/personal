@@ -1,6 +1,8 @@
 ---
+layout: portfolio
 name: "Chicago->LA 2014"
 date: 2014-01-01
+permalink: photos/
 images:
   -
     title: "US 34"
@@ -8,11 +10,11 @@ images:
     caption: ""
   -
     title: "UT SR-128"
-    src: "https://farm9.staticflickr.com/8746/16325648584_1f9252fa10_h.jpg"
+    src: "https://c1.staticflickr.com/3/2833/34082088692_246e2881cf_b.jpg"
     caption: ""
   -
     title: "Summer Tundra"
-    src: "https://farm9.staticflickr.com/8744/16325648824_e3c3844e12_h.jpg"
+    src: "https://c1.staticflickr.com/3/2809/33397626294_2b13f5dbf7_b.jpg"
     caption: ""
   -
     title: "untitled"

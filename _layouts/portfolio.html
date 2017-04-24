@@ -1,56 +1,32 @@
 ---
 layout: default
+fancybox: true
+
 ---
 <link href="{{ "/css/portfolio.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
 <div id="navbar">
   <ul>
-    <span style="float:left; padding-right:5px;">{{page.navbar_name}}</span>
+    <span style="float:left; padding-right:5px;">Stuff: </span>
+    {% for album in site.photos %}
+      <li>
+        <a id="nav_{{album.name}}" href="{{album.url}}" >{{album.name}}</a>
+      </li>
+    {% endfor %}
   </ul>
 </div>
 <center class="portfolio">
-{{ content }}
+  {{ content }}
+  <section id='{{page.name | slugify}}'>
+    <h1>{{page.name}}</h1>
+    {% for image in page.images %}
+      <a class="fancybox" rel="group" href="{{ image.src | asset_url | img_tag }}">
+        <img src="{{ image.src | asset_url | img_tag }}" class="bigland"/><br />
+      </a>
+      <p>
+        <h2>{{ image.title }}</h2>
+        {{ image.caption | default: "   "}}
+        <hr>
+      </p>
+    {% endfor %}
+  </section>
 </center>
-
-<script type="text/javascript">
-var selector = window.location.hash.substr(1) != "" ? "#" + window.location.hash.substr(1) : "#" + $("section").first()[0].id;
-switchSection(selector);
-
-	$(document).ready(function() {
-    // console.log($("section").first()[0].id);
-    {% if page.fancybox %}
-
-		$(".fancybox")
-		.attr('rel', 'gallery')
-		.fancybox({
-			padding : 0,
-			beforeShow: function () {
-            /* Disable right click */
-            $.fancybox.wrap.bind("contextmenu", function (e) {
-                    return false;
-            });
-			},
-			openEffect  : 'none',
-			closeEffect : 'none',
-			nextEffect  : 'none',
-			prevEffect  : 'none',
-			margin      : [20, 60, 20, 60] // Increase left/right margin
-		});
-    {% endif %}
-	});
-
-function switchSection(section) {
-    $("section").hide();
-    $(section).show();
-    if (p5_registry) {
-      for (index in p5_registry) {
-        script = p5_registry[index];
-        script._loop = false;
-      }
-      if (p5_registry[section]) {
-        p5_registry[section]._loop = true;
-        p5_registry[section]._draw();
-      }
-    }
-};
-
-</script>

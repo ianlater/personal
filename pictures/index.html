@@ -7,7 +7,6 @@ navbar_name: "Albums: "
 {% for album in albums reversed %}
 <script>
   var album = {{album | jsonify}};
-  $('#navbar ul').append("<li><a href=\"#{{album.name | slugify}}\" onClick='javascript:switchSection(\"#{{album.name | slugify}}\")'>"+album.name+"</a></li>");
   // console.log(album);
 </script>
   <section id='{{album.name | slugify}}'>

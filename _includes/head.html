@@ -35,7 +35,7 @@
     </script>
   {% endif %}
 
-  {% if page.fancybox %}
+  {% if page.fancybox or layout.fancybox %}
     <!-- Add fancyBox -->
     <link href="{{ "/css/fancybox/jquery.fancybox.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
     <script type="text/javascript" >
@@ -50,6 +50,29 @@
     </script>
     <script type="text/javascript" >
       {% include fancybox/source/helpers/jquery.fancybox-media.js %}
+    </script>
+
+    <!-- fancybox customization  -->
+    <script type="text/javascript">
+    	$(document).ready(function() {
+        // console.log($("section").first()[0].id);
+    		$(".fancybox")
+    		.attr('rel', 'gallery')
+    		.fancybox({
+    			padding : 0,
+    			beforeShow: function () {
+                /* Disable right click */
+                $.fancybox.wrap.bind("contextmenu", function (e) {
+                        return false;
+                });
+    			},
+    			openEffect  : 'none',
+    			closeEffect : 'none',
+    			nextEffect  : 'none',
+    			prevEffect  : 'none',
+    			margin      : [20, 60, 20, 60] // Increase left/right margin
+    		});
+    	});
     </script>
   {% endif %}
 </head>
