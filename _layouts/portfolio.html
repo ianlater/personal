@@ -1,12 +1,12 @@
 ---
 layout: default
 fancybox: true
-
+navbar_name: "Albums: "
 ---
 <link href="{{ "/css/portfolio.css" | relative_url }}" media="all" rel="stylesheet" type="text/css" />
 <div id="navbar">
   <ul>
-    <span style="float:left; padding-right:5px;">Stuff: </span>
+    <span style="float:left; padding-right:5px;">{{ layout.navbar_name }}</span>
     {% for album in site.photos %}
       <li>
         <a id="nav_{{album.name}}" href="{{album.url}}" >{{album.name}}</a>
