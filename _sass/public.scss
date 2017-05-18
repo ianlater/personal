@@ -153,7 +153,9 @@ div.message {
 	clear:both;
 }
 .row{
-	width:603px;
+    @media screen and (min-width: 603px){
+      width:603px;
+    }
 	margin:auto;
 	text-align:right;
 	float:none;
