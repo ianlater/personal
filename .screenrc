@@ -1,0 +1,31 @@
+# ref: <http://www.slac.stanford.edu/comp/unix/package/epics/extensions/iocConsole/screen.1.html#lbAK>
+#
+# %-w       = all windows names (AND numbers) before %t
+# %n %t     = current window number and title
+# %+w       = all windows after %t
+#
+# %?(%u)%?  = all other users of this window displayed unless nil
+#
+hardstatus alwayslastline
+#hardstatus string "%{.bW}%?%-Lw%?%{.rW}%n*%f %t%?(%u)%?%{-}%?%+Lw%? %=%{..G}%H%=%{..Y} %D %d/%M/%Y %C:%s%a "
+hardstatus string '%{= kw}[ %{kC}%H%{-} %= %-w%{bW}%n %t%?(%u)%?%{kw}%+w %=%{w}[%{W} %c.%s %{w}]'
+#hardstatus string '%{= kw}[%= %-w%{bW}%n %t%?(%u)%?%{kw}%+w %=%{w}][%{W} %c.%s %{w}]'
+autodetach on
+startup_message off
+altscreen on
+
+bind \ quit	 
+
+# terminfo and termcap for nice 256 color terminal
+#attrcolor b "-b .I" # attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce "on" 
+
+# ref: <http://aperiodic.net/screen/titles>
+shelltitle "$ |bash"
+defscrollback 40000 # number of lines to remember for copy mode
+
+escape ``
+
+vbell
+
